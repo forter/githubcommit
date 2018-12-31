@@ -20,14 +20,17 @@ define(['base/js/namespace','base/js/dialog','jquery'],function(IPython, dialog,
             var container = $('#notebook-container');
 
             function on_ok(){
-                var re = /^\/notebooks(.*?)$/;
+                var re = /\/notebooks(.*?)$/;
                 var filepath = window.location.pathname.match(re)[1];
                 var payload = {
                              'filename': filepath,
                              'msg': input.val()
                            };
+                var a = location.href.split('/').slice(3);
+                var b = a.slice(0, a.indexOf('notebooks'));
+                var prefix = '/' + b.join('/');
                 var settings = {
-                    url : '/git/commit',
+                    url : prefix + '/git/commit',
                     processData : false,
                     type : "PUT",
                     dataType: "json",
